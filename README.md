@@ -2,6 +2,9 @@
 A simple web app for minting Chia NFTs.
 
 
+### [Mintr](https://NFTr.pro/mintr)
+You can use the live version hosted by NFTr.pro.
+
 ## Getting started
 
 To mint your own NFTs you will need to set up a few things first.
