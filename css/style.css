@@ -1,0 +1,88 @@
+#previewJsonId {
+    font-size: small;
+    overflow-x: scroll;
+}
+
+.fillSpace {
+    width: 100%;
+    height: 100%;
+}
+
+.commandText {
+    font-size: 0.8em;
+    overflow-y: scroll;
+    max-height: 30em;
+}
+
+.previewHeader {
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+.previewValue {
+    font-size: .8em;
+    margin-bottom: 1em;
+
+    line-height: 1em;
+    /*margin-top: .5em;*/
+}
+
+.small {
+    font-size: .8em;
+}
+
+.pre {
+    display: block;
+    font-family: monospace;
+    white-space: pre;
+    margin: 1em 0;
+    /*font-size: 8px;*/
+}
+
+#previewTraitsId {
+    font-size: .9em;
+}
+
+.table > :not(caption) > * > * {
+    font-size: .8em;
+}
+
+.hidden {
+    display: none;
+}
+
+.singleLine {
+    max-height: 1.5em;
+    overflow: scroll;
+}
+
+.urlPreview {
+    max-height: 4em;
+    overflow: scroll;
+    margin-bottom: 1em;
+    line-height: 1em;
+    margin-top: .5em;
+}
+
+.required {
+    background-color: #eee;
+    border-width: 2px;
+}
+
+.requiredText {
+    color: #ED1E67;
+}
+
+.centered {
+    text-align: center;
+}
+
+h6 {
+    color: #999;
+    font-size: 1.25em;
+}
+
+.scrollOverflow {
+    min-height:2.5em;
+    overflow: auto;
+}
