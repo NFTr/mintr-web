@@ -55,6 +55,8 @@ app.defaultData.walletFingerprint = "";
 app.defaultData.fee = ".00000001";
 app.defaultData.collectionName = "";
 app.defaultData.collectionDescription = "";
+app.defaultData.collectionIcon = "";
+app.defaultData.collectionBanner = "";
 app.defaultData.collectionTwitter = "";
 app.defaultData.collectionWebsite = "";
 app.defaultData.collectionDiscord = "";
@@ -107,6 +109,8 @@ app.copyDataToForm = function (userData) {
 
     collectionDescriptionId.value = userData.collectionDescription || "";
     collectionTwitterId.value = userData.collectionTwitter || "";
+    collectionIconId.value = userData.collectionIcon || "";
+    collectionBannerId.value = userData.collectionBanner || "";
     collectionWebsiteId.value = userData.collectionWebsite || "";
     collectionDiscordId.value = userData.collectionDiscord || "";
     collectionInstagramId.value = userData.collectionInstagram || "";
@@ -177,6 +181,8 @@ app.copyFormToData = function (userData) {
     userData.collectionId = collectionIdId.value;
     userData.collectionName = collectionNameId.value;
     userData.collectionDescription = collectionDescriptionId.value;
+    userData.collectionIcon = collectionIconId.value;
+    userData.collectionBanner = collectionBannerId.value;
     userData.collectionTwitter = collectionTwitterId.value;
     userData.collectionWebsite = collectionWebsiteId.value;
     userData.collectionDiscord = collectionDiscordId.value;
@@ -540,6 +546,17 @@ app.generateJson = function (userData) {
     if (userData.collectionDescription) app.metadata.collection.attributes.push({
         type: "description",
         value: userData.collectionDescription
+    });
+
+    if (userData.collectionIcon) app.metadata.collection.attributes.push({
+        type: "icon",
+        value: userData.collectionIcon
+    });
+
+
+    if (userData.collectionBanner) app.metadata.collection.attributes.push({
+        type: "banner",
+        value: userData.collectionBanner
     });
 
     if (userData.collectionTwitter) app.metadata.collection.attributes.push({

@@ -56,6 +56,8 @@ app.copyDataToPreview = function (userData) {
 
     // optional collection attributes
     $('#previewCollectionOptionalId > div').remove();
+    app.previewLabelAndValue("Icon", userData.collectionIcon);
+    app.previewLabelAndValue("Banner", userData.collectionBanner);
     app.previewLabelAndValue("Twitter", userData.collectionTwitter);
     app.previewLabelAndValue("Website", userData.collectionWebsite);
     app.previewLabelAndValue("Discord", userData.collectionDiscord);
