@@ -23,7 +23,7 @@ app.dict.en = {
     metadataUploadedToNftStorage: "Metadata uploaded to nft.storage.",
     snapshotDataNotCompatible: "The loaded JSON is not a Mintr snapshot.",
     nftDataNotCompatible: "The loaded JSON is not a valid NFT metadata file.",
-    clearNftData: "Clear NFT Data?",
+    clearNftData: "Clear NFT Details?",
     resetAllData: "Replace all the custom values with the defaults?",
     saveSettings: "Save Settings",
     saveNftMetatdata: "Save NFT Metadata",
@@ -59,7 +59,7 @@ app.dict.en = {
         {id: "collectionInstagramLabelId", value: "Instagram"},
         {id: "collectionMediumLabelId", value: "Medium"},
         {id: "collectionEditionNumberLabelId", value: "Edition Number"},
-        {id: "collectioneditionTotalLabelId", value: "Edition Total"},
+        {id: "collectionEditionTotalLabelId", value: "Edition Total"},
 
 
         {id: "nav-license-tab", value: "License"},
@@ -86,7 +86,7 @@ app.dict.en = {
         {id: "addUrlButtonId", value: "Add URI (+)"},
 
 
-        {id: "nftDataTabId", value: "3. NFT Data"},
+        {id: "nftDataTabId", value: "3. NFT Details"},
         {id: "nav-basic-tab", value: "Basic"},
         {id: "nav-traits-tab", value: "Traits"},
         {id: "addTraitButtonId", value: "Add Trait (+)"},

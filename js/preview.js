@@ -48,7 +48,7 @@ app.copyDataToPreview = function (userData) {
 
 
     previewEditionNumberId.innerHTML = userData.collectionEditionNumber || none;
-    previewEditionTotalId.innerHTML = userData.collectioneditionTotal || none;
+    previewEditionTotalId.innerHTML = userData.collectionEditionTotal || none;
 
     previewFeeId.innerHTML = !userData.fee ? required : `${userData.fee} XCH(${app.convertXchToMojoString(userData.fee)} mojo)`;
 
@@ -94,7 +94,7 @@ app.copyDataToPreview = function (userData) {
         $('#previewTraitsTable').removeClass("hidden");
         $('#previewTraitsId tr').remove();
         for (let i = 0; i < userData.attributes.length; i++) {
-            app.addTraitToPreview(userData.attributes[i].trait_type, userData.attributes[i].value, userData.attributes[i].min, userData.attributes[i].max);
+            app.addTraitToPreview(userData.attributes[i].trait_type, userData.attributes[i].value, userData.attributes[i].min_value, userData.attributes[i].max_value);
         }
     } else
         $('#previewTraitsTable').addClass("hidden");

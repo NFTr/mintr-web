@@ -63,7 +63,7 @@ app.defaultData.collectionDiscord = "";
 app.defaultData.collectionInstagram = "";
 app.defaultData.collectionMedium = "";
 app.defaultData.collectionEditionNumber = "";
-app.defaultData.collectioneditionTotal = "";
+app.defaultData.collectionEditionTotal = "";
 app.defaultData.collectionId = "";
 
 app.defaultData.seriesNumber = "";
@@ -116,7 +116,7 @@ app.copyDataToForm = function (userData) {
     collectionInstagramId.value = userData.collectionInstagram || "";
     collectionMediumId.value = userData.collectionMedium || "";
     collectionEditionNumberId.value = userData.collectionEditionNumber || "";
-    collectioneditionTotalId.value = userData.collectioneditionTotal || "";
+    collectionEditionTotalId.value = userData.collectionEditionTotal || "";
     mintingToolId.value = userData.mintingTool || "";
 
     licenseHashId.value = userData.licenseHash;
@@ -147,7 +147,7 @@ app.copyDataToForm = function (userData) {
     // traits
     $("#traitsListId").empty();
     for (let i = 0; i < userData.attributes.length; i++) {
-        app.addTraitToForm(userData.attributes[i].trait_type, userData.attributes[i].value, userData.attributes[i].min, userData.attributes[i].max);
+        app.addTraitToForm(userData.attributes[i].trait_type, userData.attributes[i].value, userData.attributes[i].min_value, userData.attributes[i].max_value);
     }
 
     // metadata uris
@@ -168,6 +168,7 @@ app.copyFormToData = function (userData) {
     // console.log(`[ copyFormToData ]`);
 
     userData.royaltyPercent = royaltyPercentId.value * 100;
+
     userData.nftName = nftNameId.value;
     userData.nftDescription = nftDescriptionId.value;
     userData.seriesNumber = seriesNumberId.value;
@@ -189,7 +190,7 @@ app.copyFormToData = function (userData) {
     userData.collectionInstagram = collectionInstagramId.value;
     userData.collectionMedium = collectionMediumId.value;
     userData.collectionEditionNumber = collectionEditionNumberId.value;
-    userData.collectioneditionTotal = collectioneditionTotalId.value;
+    userData.collectionEditionTotal = collectionEditionTotalId.value;
     userData.mintingTool = mintingToolId.value;
 
     userData.walletId = walletIdId.value;
@@ -231,11 +232,15 @@ app.copyFormToData = function (userData) {
     userData.attributes = [];
     let numberOfTraits = $("#traitsListId > div").length;
     for (let i = 0; i < numberOfTraits; i++) {
+
+        let val = $("#trait" + i + "_valueInputId")[0].value;
+        let minValRaw = $("#trait" + i + "_minInputId")[0].value;
+        let maxValRaw = $("#trait" + i + "_maxInputId")[0].value;
         userData.attributes.push({
             trait_type: $("#trait" + i + "_labelInputId")[0].value,
-            value: $("#trait" + i + "_valueInputId")[0].value,
-            min: $("#trait" + i + "_minInputId")[0].value,
-            max: $("#trait" + i + "_maxInputId")[0].value
+            value: !val || isNaN(val) ? val : parseFloat(val),
+            min_value: !minValRaw || isNaN(minValRaw) ? minValRaw : parseFloat(minValRaw),
+            max_value: !maxValRaw || isNaN(maxValRaw) ? maxValRaw : parseFloat(maxValRaw)
         })
     }
 
@@ -516,10 +521,12 @@ app.generateJson = function (userData) {
     app.metadata.sensitive_content = !!userData.nftIsSensitive; // Boolean for sensitive content within the NFT
 
     if (userData.seriesNumber)
-        app.metadata.series_number = userData.seriesNumber;
+        app.metadata.series_number =
+            isNaN(userData.seriesNumber) ? userData.seriesNumber : parseFloat(userData.seriesNumber);
 
     if (userData.seriesTotal)
-        app.metadata.series_total = userData.seriesTotal;
+        app.metadata.series_total =
+            isNaN(userData.seriesTotal) ? userData.seriesTotal : parseFloat(userData.seriesTotal);
 
     app.metadata.format = "CHIP-0007";
 
@@ -530,8 +537,8 @@ app.generateJson = function (userData) {
             let oneItem = {
                 trait_type: userData.attributes[i].trait_type, value: userData.attributes[i].value,
             };
-            if (userData.attributes[i].min) oneItem.min = userData.attributes[i].min;
-            if (userData.attributes[i].max) oneItem.max = userData.attributes[i].max;
+            if (userData.attributes[i].min_value) oneItem.min_value = userData.attributes[i].min_value;
+            if (userData.attributes[i].max_value) oneItem.max_value = userData.attributes[i].max_value;
             app.metadata.attributes.push(oneItem);
         }
     }
@@ -589,7 +596,6 @@ app.generateJson = function (userData) {
         app.metadata.minting_tool = userData.mintingTool; // Name or short tag of the minting tool used to create this NFT
 
 
-
     let jsonForPreview = JSON.stringify(app.metadata, null, "  ");
 
     previewJsonId.innerText = jsonForPreview;
@@ -629,7 +635,7 @@ app.updateCliCommand = function (userData) {
     app.cliCommand += ` -lu ${licenseUris}`; // A comma-separated list of URIs where the image's license may be found.
     app.cliCommand += ` -lh ${userData.licenseHash}`; // The hash of the NFT's license.
     app.cliCommand += ` -en ${userData.collectionEditionNumber}`; // The hash of the NFT's license.
-    app.cliCommand += ` -ec ${userData.collectioneditionTotal}`; // The hash of the NFT's license.
+    app.cliCommand += ` -ec ${userData.collectionEditionTotal}`; // The hash of the NFT's license.
     app.cliCommand += ` -rp ${userData.royaltyPercent}`; //The royalty percentage expressed as tens of thousandths of a percent.
     app.cliCommand += ` -mh ${userData.metadataHash}`; //The hash of the NFT's metadata.
     app.cliCommand += ` -m ${userData.fee}`; // The fee for this transaction in XCH.
@@ -671,10 +677,11 @@ app.updateRpcCommand = function (userData) {
         "royalty_address": userData.royaltyAddress,
         "royalty_percentage": userData.royaltyPercent,
         "target_address": userData.nftAddress,
-        "edition_number": userData.edition_number,
-        "edition_count": userData.edition_count,
+        "edition_number": !userData.collectionEditionNumber || isNaN(userData.collectionEditionNumber) ? userData.collectionEditionNumber : parseFloat(userData.collectionEditionNumber),
+        "edition_count": !userData.collectionEditionTotal || isNaN(userData.collectionEditionTotal) ? userData.collectionEditionTotal : parseFloat(userData.collectionEditionTotal),
         "fee": app.convertXchToMojoString(userData.fee)
     };
+
 
     if (userData.didAddress)
         rpcParts.did_id = userData.didAddress;
@@ -683,8 +690,6 @@ app.updateRpcCommand = function (userData) {
 
     commandRpcId.innerText = app.rpcCommand;
 }
-
-
 
 
 app.handleReloadEdgeCases = function () {
