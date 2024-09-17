@@ -667,7 +667,7 @@ app.updateRpcCommand = function (userData) {
     }
 
     let rpcParts = {
-        "wallet_id": userData.walletId,
+        "wallet_id": parseInt(userData.walletId),
         "uris": assetUris,
         "hash": userData.assetHash,
         "meta_uris": metadataUris,
