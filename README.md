@@ -1,6 +1,6 @@
 # Mintr
 
-A simple, but powerful dApp for creating, managing, uploading, and minting NFTs. Supports the open-metaverse standards for all types of content using the Schema.orf schema for minting anything.
+A simple, but powerful dApp for creating, managing, uploading, and minting NFTs. Supports the open-metaverse standards for all types of content using the Schema.org schema for minting anything.
 
 ## [Mintr](https://NFTr.pro/mintr)
 
